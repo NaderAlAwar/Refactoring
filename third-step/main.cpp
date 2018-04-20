@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <string.h>
 using namespace std; 
 
 #include "var.h"
@@ -10,11 +11,51 @@ using namespace std;
 #include "LImplies.h"
 #include "solve.h"
 
+void test1();
+void test2();
+void test3();
+void test4();
+void test5();
+void test6();
+void test7();
+
 int 
-main() {
+main(int argc, char* argv[]) {
+   if(argc < 2)
+    cout << "Please enter a test number";
+  else{
+  if(strcmp(argv[1], "1") == 0)
+    test1();
+  else if(strcmp(argv[1], "2") == 0)
+    test2();
+  else if(strcmp(argv[1], "3") == 0)
+    test3();
+  else if(strcmp(argv[1], "4") == 0)
+    test4();
+  else if(strcmp(argv[1], "5") == 0)
+    test5();
+  else if(strcmp(argv[1], "6") == 0)
+    test6();
+  else if(strcmp(argv[1], "7") == 0)
+    test7();
+  }
+  return 0;
+}
+
+void test1(){
+  Var v1("x0"); 
+  Var v2("x1"); 
+  LAnd a1(&v1,&v2); 
+  LAnd a2(&a1,&v2); 
+  LOr o1(&a2,&v1); 
+  LNot n1(&o1); 
+  cout << n1 << endl;
+}
+
+void test2(){
    Var v1("x0"); 
-   Var v2("x1"); 
-   LAnd a1(&v1,&v2); 
+  Var v2("x1"); 
+  LAnd a1(&v1,&v2); 
   LAnd a2(&a1,&v2); 
   LOr o1(&a2,&v1); 
   LNot n1(&o1); 
@@ -28,23 +69,44 @@ main() {
   cout << o1 << " " << o1.evaluate() << endl; 
   TriValue val = n1.evaluate(); 
   cout << n1 << "evaluates to " << val << endl; 
+}
 
-  v2.setValue(tt);
-  val = n1.evaluate(); 
+void test3(){
+  Var v1("x0"); 
+  Var v2("x1"); 
+  LAnd a1(&v1,&v2); 
+  LAnd a2(&a1,&v2); 
+  LOr o1(&a2,&v1); 
+  LNot n1(&o1);
+v1.setValue(tt);
+  v2.setValue(ff);
+   v2.setValue(tt);
+  TriValue val = n1.evaluate(); 
   cout << "now " << n1 << "evaluates to " << nameOfValue(val) << endl; 
+}
 
-  v1.setValue(uu);
-  val = n1.evaluate(); 
+void test4(){
+  Var v1("x0"); 
+  Var v2("x1"); 
+  LAnd a1(&v1,&v2); 
+  LAnd a2(&a1,&v2); 
+  LOr o1(&a2,&v1); 
+  LNot n1(&o1);
+v1.setValue(tt);
+  v2.setValue(ff);
+   v2.setValue(tt);
+   v1.setValue(uu);
+  TriValue val = n1.evaluate(); 
   cout << "now " << n1 << "evaluates to " << nameOfValue(val) << endl; 
-  // try also evaluating a1, a2 and o1. 
-  // try your own formulae
+}
 
+void test5(){
   Var v3("x3");
   Var v4("x4");
   v3.setValue(tt);
   v4.setValue(tt);
   LImplies i1(&v3, &v4);
-  val = i1.evaluate();
+  TriValue val = i1.evaluate();
   cout << "now " << i1 << "evaluates to " << nameOfValue(val) << endl;
   v4.setValue(ff);
   val = i1.evaluate();
@@ -52,8 +114,19 @@ main() {
   v4.setValue(uu);
   val = i1.evaluate();
   cout << "now " << i1 << "evaluates to " << nameOfValue(val) << endl;
+}
 
-  vector<Var*> temp;
+void test6(){
+  Var v1("x0"); 
+  Var v2("x1"); 
+  LAnd a1(&v1,&v2); 
+  LAnd a2(&a1,&v2);
+   Var v3("x3");
+  Var v4("x4");
+  v3.setValue(tt);
+  v4.setValue(tt);
+  LImplies i1(&v3, &v4);
+ vector<Var*> temp;
   i1.getVars(temp);
   cout << "# of variables in " << i1 << " is " << temp.size() << endl;
   LAnd i2(&i1, &a2);
@@ -64,9 +137,18 @@ main() {
   vector<Var*> temp3;
   i3.getVars(temp3);
   cout << "# of variables in " << i3 << " is " << temp3.size() << endl;
-  cout << "solving i2: " << i2 << endl;
-  solve(i2);
-
-  return 0;
 }
 
+void test7(){
+  Var v1("x0"); 
+   Var v2("x1"); 
+   LAnd a1(&v1,&v2); 
+  LAnd a2(&a1,&v2); 
+  Var v3("x3");
+  Var v4("x4");
+  v3.setValue(tt);
+  v4.setValue(tt);
+  LImplies i1(&v3, &v4);
+  LAnd i2(&i1, &a2);
+  solve(i2);
+}

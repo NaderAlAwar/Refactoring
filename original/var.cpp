@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 using namespace std; 
-#include <var.h>
+#include "var.h"
 
 string nameOfValue(TriValue v){
   static string nameOfValueTable[]={"uu", "tt", "ff"}; 

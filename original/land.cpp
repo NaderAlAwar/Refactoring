@@ -1,9 +1,9 @@
 #include <iostream>
 #include <string>
 using namespace std; 
-#include <land.h>
-#include <lor.h>
-#include <lnot.h>
+#include "land.h"
+#include "lor.h"
+#include "lnot.h"
 
 ostream & operator << (ostream & os, LAnd & v) {
   os << "( "; // print left parenthesis
